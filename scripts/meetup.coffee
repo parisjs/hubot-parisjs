@@ -13,6 +13,6 @@ module.exports = (robot) ->
         if result.query.count > 0
           events = result.query.results.events.event
           next = events[events.length - 1]
-          msg.send "#{next.title} @ #{next.venue.name} - #{next.url}"
+          msg.send "#{next.title} @ #{next.venue.name} - #{next.start_date} - #{next.num_attendee_rows} attendees - #{next.url}"
         else
           msg.send "sorry error"

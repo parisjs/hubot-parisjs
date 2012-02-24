@@ -22,6 +22,7 @@ module.exports = (robot) ->
           msg.send "sorry error"
 
   robot.respond /who spoke at (parisjs|meetup) ([1-9]+)?/i, (msg) ->
+    return msg.send('haha, look! no crash')
     parisjs.parseMeetups 'http://parisjs.org/', (meetups) ->
       meetups = JSON.parse(meetups)
       num = meetups.length - msg.match[2]

@@ -19,16 +19,23 @@ get_meetups = (msg, callback) ->
       else
         msg.send "sorry error"
 
+format_meetup = (meetup) ->
+  "#{meetup.title} @ #{meetup.venue.name} - #{meetup.start_date} - #{meetup.num_attendee_rows} attendees - #{meetup.url}"
+
 module.exports = (robot) ->
   robot.respond /next meetup/i, (msg) ->
     get_meetups msg, (events) ->
       next = events[events.length - 1]
-      msg.send "#{next.title} @ #{next.venue.name} - #{next.start_date} - #{next.num_attendee_rows} attendees - #{next.url}"
+      if next.status == 'Completed'
+        msg.send "sorry no meetup scheduled yet"
+      else
+        msg.send format_meetup(next)
 
-  robot.respond /previous meetup/i, (msg) ->
+  robot.respond /(latest|previous) meetup/i, (msg) ->
     get_meetups msg, (events) ->
-      prev = events[events.length - 2]
-      msg.send "#{prev.title} @ #{prev.venue.name} - #{prev.start_date} - #{prev.num_attendee_rows} attendees - #{prev.url}"
+      latest = events[events.length - 1]
+      latest = events[events.length - 2] if latest.status != 'Completed'
+      msg.send format_meetup(latest)
 
   robot.respond /who spoke at (parisjs|meetup) ([1-9]+)?/i, (msg) ->
     parisjs.parseMeetups 'http://parisjs.org/', (meetups) ->

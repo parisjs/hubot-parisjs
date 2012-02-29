@@ -1,6 +1,7 @@
 # Allows Hubot to show info on meetups
 #
 # next meetup
+# previous/latest meetup
 # who spoke at parisjs?
 
 parisjs = require('parisjs-website')

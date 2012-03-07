@@ -1,1 +1,1 @@
-["redis-brain.coffee", "web.coffee", "tweet-content.coffee"]
+["redis-brain.coffee", "web.coffee", "tweet-content.coffee", "google.coffee"]

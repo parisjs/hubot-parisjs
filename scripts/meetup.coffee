@@ -38,7 +38,7 @@ module.exports = (robot) ->
       latest = events[events.length - 2] if latest.status != 'Completed'
       msg.send format_meetup(latest)
 
-  robot.respond /who spoke at (parisjs|meetup) ([1-9]+)?/i, (msg) ->
+  robot.respond /who spoke at (parisjs|meetup) ([0-9]+)?/i, (msg) ->
     parisjs.parseMeetups 'http://parisjs.org/', (meetups) ->
       meetups = JSON.parse(meetups)
       num = meetups.length - msg.match[2]

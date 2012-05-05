@@ -3,6 +3,7 @@
 # next meetup
 # previous/latest meetup
 # who spoke at parisjs?
+# who spoke about javascript ?
 
 parisjs = require('parisjs-website')
 
@@ -45,6 +46,31 @@ module.exports = (robot) ->
       meetup = meetups[num]
       return msg.send("sorry this meetup doesn't exists") if not meetup
       msg.send((authors talk for talk in meetup.talks).join(", "))
+      
+  robot.respond /who spoke about ([\w]+) ?/i, (msg) ->
+    console.log('who spoke about')
+    parisjs.parseMeetups 'http://parisjs.org/', (meetups) ->
+      meetups = JSON.parse(meetups)
+      has_been_spoken_once = false
+      has_been_spoken_each = (spoken_in(meetup, msg) for meetup in meetups)
+      (has_been_spoken_once = has_been_spoken_once || spoken) for spoken in has_been_spoken_each
+      msg.send ('No one yet spoke about ' + msg.match[1] + '. You might be the first : http://goo.gl/5l1wg') if not has_been_spoken_once
+        
 
 authors = (talk) ->
   (author.name for author in talk.authors).join(', ')
+
+links = (talk, type) ->
+  if talk[type] && talk[type].length > 0
+    return talk[type].join(' ') + ' ' 
+  else
+    return ''
+  
+spoken_in = (meetup, msg) ->
+  keyword = msg.match[1].toLowerCase()
+  talks = (talk for talk in meetup.talks when talk.title.toLowerCase().indexOf(keyword) != -1)
+  
+  if talks
+    msg.send(authors(talk) + ' spoke about ' + msg.match[1] + ' in : "' + talk.title + '" on ' + meetup.title + '. See more on ' + links(talk, 'slides') + links(talk, 'videos') + links(talk, 'projects')) for talk in talks
+
+  return talks.length > 0

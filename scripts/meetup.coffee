@@ -43,14 +43,14 @@ module.exports = (robot) ->
       latest = events[events.length - 2] if latest.status != 'Completed'
       msg.send format_meetup(latest)
 
-  robot.respond /who spoke at (parisjs|meetup) ([0-9]+)?/i, (msg) ->
+  robot.respond /who spoke at (parisjs|meetup) ([0-9]+)\?/i, (msg) ->
     get_meetups (meetups) ->
       num = meetups.length - msg.match[2]
       meetup = meetups[num]
       return msg.send("sorry this meetup doesn't exist") if not meetup
       msg.send((authors talk for talk in meetup.talks).join(", "))
 
-  robot.respond /who spoke about ([\w]+)?/i, (msg) ->
+  robot.respond /who spoke about ([\w]+)\?/i, (msg) ->
     get_meetups (meetups) ->
       has_been_spoken_once = false
       has_been_spoken_each = (spoken_in(meetup, msg) for meetup in meetups)

@@ -1,9 +1,12 @@
-# Allows Hubot to show info on meetups
+# Description:
+#   Show info about meetups (past, present, futur)
 #
-# next meetup
-# previous/latest meetup
-# who spoke at parisjs <number>?
-# who spoke about <query>?
+# Commands:
+#   hubot next meetup - Display info about the next meetup
+#   hubot previous meetup - Display info about the previous meetup
+#   hubot latest meetup -  Display info about the previous meetup
+#   hubot who spoke at parisjs <number>? - Display talks authors for the given meetup
+#   hubot who spoke about <query>? - Search all talks that match query
 
 parisjs = require('parisjs-website')
 

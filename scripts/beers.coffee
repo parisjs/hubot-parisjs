@@ -1,6 +1,8 @@
-# Search a beer using the brewerydb.com API
+# Description:
+#   Search a beer using the brewerydb.com API
 #
-# beer search <query>
+# Commands:
+#   hubot beer search <query> - Search beers that match query
 
 API_KEY = process.env.BREWERYDB_KEY;
 

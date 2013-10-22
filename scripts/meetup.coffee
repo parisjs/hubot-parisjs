@@ -58,7 +58,7 @@ module.exports = (robot) ->
       has_been_spoken_once = false
       has_been_spoken_each = (spoken_in(meetup, msg) for meetup in meetups)
       (has_been_spoken_once = has_been_spoken_once || spoken) for spoken in has_been_spoken_each
-      msg.send ("No one yet spoke about #{msg.match[1]}. You might be the first : http://goo.gl/5l1wg") if not has_been_spoken_once
+      msg.send ("No one yet spoke about #{msg.match[1]}. You might be the first : http://parisjs.org/program.html#add") if not has_been_spoken_once
 
 authors = (talk) ->
   (author.name for author in talk.authors).join(', ')
